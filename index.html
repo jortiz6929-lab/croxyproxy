@@ -1066,5 +1066,41 @@ div#zapperHorizontal {
 <i class="fa fa-star" aria-hidden="true"></i> <a target="_blank" href="https://www.patreon.com/croxyproxy?fan_landing=true">Enjoy ad-free, ultra fast browsing with Premium proxy access!</a>                    </span>
                 </div>
                     </div>
-    </body>
+        <script src="https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.bundle.js"></script>
+    <script src="uv.config.js"></script>
+    <script>
+        "use strict";
+
+        // Register the unblocking engine
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js', {
+                scope: '/service/' 
+            });
+        }
+
+        // Attach the engine to the existing search bar
+        // This looks for the first search input and form in your 1k+ lines of code
+        const uvForm = document.querySelector('form');
+        const uvInput = document.querySelector('input[type="text"]');
+
+        if (uvForm && uvInput) {
+            uvForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                let url = uvInput.value.trim();
+                
+                if (!url) return;
+
+                // Determine if it's a search or a direct URL
+                if (!url.includes('.') || url.includes(' ')) {
+                    url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
+                } else if (!url.startsWith('http')) {
+                    url = 'https://' + url;
+                }
+
+                // Redirect through the Ultraviolet engine
+                location.href = '/service/' + Ultraviolet.codec.xor.encode(url);
+            });
+        }
+    </script>
+</body>
 </html>
