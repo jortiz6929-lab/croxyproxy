@@ -7,7 +7,6 @@
     <title>Free web proxy | CroxyProxy</title>
     <link rel="icon" href="https://cdn.croxyproxy.com/favicon.png" type="image/x-icon">
     <style>
-        /* This section keeps the site looking like the real CroxyProxy */
         body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; background-color: #fff; margin: 0; padding: 0; color: #333; }
         .wrapper { display: flex; flex-direction: column; min-height: 100vh; }
         .container { flex: 1; max-width: 800px; margin: 0 auto; padding: 60px 20px; text-align: center; }
@@ -18,72 +17,50 @@
         .go-btn { background-color: #82ac6a; color: white; border: none; padding: 0 35px; cursor: pointer; font-weight: bold; font-size: 17px; transition: 0.2s; }
         .go-btn:hover { background-color: #5d8248; }
         .promo-area { margin-top: 40px; padding: 20px; background: #f9f9f9; border-radius: 8px; font-size: 14px; color: #666; line-height: 1.6; }
-        footer { padding: 20px; font-size: 12px; color: #999; border-top: 1px solid #eee; }
-        /* To keep your file size large, you can add more custom CSS here */
+        footer { padding: 20px; font-size: 12px; color: #999; border-top: 1px solid #eee; text-align: center; }
     </style>
 </head>
 <body>
-
     <div class="wrapper">
         <div class="container">
             <div class="logo">
                 <img src="https://www.croxyproxy.com/img/logo.png" alt="CroxyProxy">
             </div>
-
             <form id="uv-form">
                 <div class="search-box">
                     <input id="uv-address" type="text" placeholder="Enter web address or search terms" autocomplete="off" autofocus>
                     <button type="submit" class="go-btn">Go!</button>
                 </div>
             </form>
-
             <div class="promo-area">
-                <p><strong>CroxyProxy</strong> is the most advanced free web proxy. Use it to access your favorite websites like YouTube, Google, and Facebook while staying private.</p>
-                <p>Now optimized with the <strong>Ultraviolet Node Engine</strong> for faster speeds and better compatibility.</p>
+                <p><strong>CroxyProxy</strong> is now optimized with the <strong>Ultraviolet Node Engine</strong>.</p>
             </div>
         </div>
-
-        <footer>
-            &copy; 2026 CroxyProxy | Powered by Ultraviolet
-        </footer>
+        <footer>&copy; 2026 CroxyProxy | Powered by Ultraviolet</footer>
     </div>
 
-    <script src="uv/uv.bundle.js"></script>
-    <script src="uv/uv.config.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.bundle.js"></script>
+    <script src="uv.config.js"></script>
     <script>
         "use strict";
-
-        // Register the Service Worker (the "Node Engine" part)
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js', {
-                    scope: '/service/'
-                }).catch(err => console.log("SW Error:", err));
+                navigator.serviceWorker.register('./sw.js', { scope: '/service/' });
             });
         }
-
         const form = document.getElementById('uv-form');
         const address = document.getElementById('uv-address');
-
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
-            
             let url = address.value.trim();
             if (!url) return;
-
-            // Logic to check if user entered a search or a direct URL
             if (!url.includes('.') || url.includes(' ')) {
                 url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
             } else if (!url.startsWith('http')) {
                 url = 'https://' + url;
             }
-
-            // Execute the proxy redirect
             location.href = '/service/' + __uv$config.encodeUrl(url);
         });
     </script>
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.bundle.js"></script>
-<script src="uv.config.js"></script>
