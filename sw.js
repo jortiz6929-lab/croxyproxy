@@ -1,10 +1,6 @@
-/* Service Worker for Ultraviolet 
-   This file intercepts network requests to keep you anonymous.
-*/
-
-importScripts('uv.bundle.js');
+importScripts('https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.bundle.js');
 importScripts('uv.config.js');
-importScripts('uv.sw.js');
+importScripts('https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.sw.js');
 
 const sw = new UVServiceWorker();
 
