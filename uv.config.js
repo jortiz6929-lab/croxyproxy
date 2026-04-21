@@ -1,19 +1,14 @@
-/* Ultraviolet Configuration 
-   This file tells the browser how to handle the proxy requests.
-*/
-
 self.__uv$config = {
     prefix: '/service/',
     bare: [
         'https://bare.benro.dev/',
         'https://uv.student-portal.workers.dev/bare/',
-        'https://tomp.app/',
-        'https://bare.fly.dev/'
+        'https://tomp.app/'
     ],
     encodeUrl: Ultraviolet.codec.xor.encode,
     decodeUrl: Ultraviolet.codec.xor.decode,
-    handler: '/uv.handler.js',
-    bundle: '/uv.bundle.js',
+    handler: 'https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.handler.js',
+    bundle: 'https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.bundle.js',
     config: '/uv.config.js',
-    sw: '/uv.sw.js',
+    sw: 'https://cdn.jsdelivr.net/npm/@titaniumnetwork-dev/ultraviolet@3.0.2/dist/uv.sw.js',
 };
